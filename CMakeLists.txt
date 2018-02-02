@@ -1,10 +1,17 @@
+# https://github.com/kartikkumar/cppbase
+
 cmake_minimum_required(VERSION 3.9)
-project(PcapReader)
+project(NetworkReader)
 
 set(CMAKE_CXX_STANDARD 11)
 
+set(PROJECT_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
+set(INCLUDE_PATH "${PROJECT_PATH}/include")
+
 include(FindPCAP.cmake)
 
-add_executable(PcapReader main.cpp)
+include_directories(AFTER "${INCLUDE_PATH}")
 
-target_link_libraries(PcapReader ${PCAP_LIBRARY})
+add_executable(NetworkReader main.cpp src/pcap_reader.cpp include/pcap_reader.h)
+
+target_link_libraries(NetworkReader ${PCAP_LIBRARY})
