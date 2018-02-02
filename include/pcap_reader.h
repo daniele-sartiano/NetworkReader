@@ -11,17 +11,19 @@
 #include <netinet/ip.h>
 #include <netinet/tcp.h>
 #include <arpa/inet.h>
+#include "reader_interface.h"
 
 using namespace std;
 
-class PcapReader {
+class PcapReader : ReaderInterface {
     string filename;
 public:
-    explicit PcapReader (string f) : filename(f) {};
+    explicit PcapReader(string f) : filename(std::move(f)) {};
 
     int read();
+
 private:
-    static void packetHandler(u_char *userdata, const struct pcap_pkthdr* pkthdr, const u_char* packet);
+    static void packetHandler(u_char *userdata, const struct pcap_pkthdr *pkthdr, const u_char *packet);
 };
 
 

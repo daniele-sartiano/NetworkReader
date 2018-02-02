@@ -7,6 +7,7 @@
 #include <pcap_reader.h>
 
 #include <rrd.h>
+#include <rrd_reader.h>
 
 using namespace std;
 
@@ -30,8 +31,13 @@ int main(int argc, char* argv[]) {
     }
 
 
-    PcapReader *reader = new PcapReader(nvalue);
-    reader->read();
+    RrdReader *r = new RrdReader(nvalue);
+    r->read();
+
+    /*PcapReader *reader = new PcapReader(nvalue);
+    reader->read();*/
+
+
 
     return(0);
 }
