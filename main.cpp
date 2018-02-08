@@ -34,6 +34,7 @@ int main(int argc, char* argv[]) {
     RrdReader *r = new RrdReader(nvalue);
     r->read();
 
+    //-f /projects/ntop/c++/NetworkReader/data/pcap/snort.log.1425823194
     /*PcapReader *reader = new PcapReader(nvalue);
     reader->read();*/
 
