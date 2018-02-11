@@ -4,10 +4,10 @@
 
 #include "pcap_reader.h"
 
-int PcapReader::read() {
+int PcapReader::read(string filename) {
     char errbuff[PCAP_ERRBUF_SIZE];
     cout << this->filename << "\n";
-    pcap_t *pcap = pcap_open_offline(this->filename.c_str(), errbuff);
+    pcap_t *pcap = pcap_open_offline(filename.c_str(), errbuff);
 
     if (pcap == NULL) {
         cerr << "pcap_open_offline() failed: " << errbuff << endl;

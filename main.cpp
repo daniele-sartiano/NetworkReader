@@ -5,13 +5,17 @@
 #include <iostream>
 #include <getopt.h>
 #include <pcap_reader.h>
-
 #include <rrd.h>
 #include <rrd_reader.h>
+#include <utils.h>
+
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
+
+    Utils::getFiles(".");
+
     const char* nvalue = "";
     int c ;
     while( ( c = getopt (argc, argv, "f:") ) != -1 )
@@ -31,8 +35,9 @@ int main(int argc, char* argv[]) {
     }
 
 
-    RrdReader *r = new RrdReader(nvalue);
-    r->read();
+    RrdReader *r = new RrdReader();
+    r->read(nvalue);
+    delete r;
 
     //-f /projects/ntop/c++/NetworkReader/data/pcap/snort.log.1425823194
     /*PcapReader *reader = new PcapReader(nvalue);

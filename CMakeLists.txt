@@ -13,6 +13,6 @@ include(FindPCAP.cmake)
 
 include_directories(AFTER "${INCLUDE_PATH}")
 
-add_executable(NetworkReader main.cpp src/pcap_reader.cpp include/pcap_reader.h src/rrd_reader.cpp include/rrd_reader.h include/reader_interface.h)
+add_executable(NetworkReader main.cpp src/pcap_reader.cpp include/pcap_reader.h src/rrd_reader.cpp include/rrd_reader.h include/reader_interface.h include/step.h include/utils.h src/utils.cpp)
 
 target_link_libraries(NetworkReader ${PCAP_LIBRARY} ${RRD_LIBRARIES})

@@ -8,6 +8,9 @@
 #include <iostream>
 #include <ctime>
 #include <rrd.h>
+#include <list>
+#include <utility>
+#include <vector>
 #include "reader_interface.h"
 
 using namespace std;
@@ -15,9 +18,9 @@ using namespace std;
 class RrdReader : ReaderInterface {
     string filename;
 public:
-    RrdReader(string f) : filename(std::move(f)) {};
+    RrdReader() {};
 
-    int read();
+    int read(string filename);
 };
 
 
