@@ -13,6 +13,7 @@ using namespace std;
 
 namespace Utils {
     list<string> getFiles(string directory);
+    bool isInteger(const string & s);
 }
 
 #endif //NETWORKREADER_UTILS_H
