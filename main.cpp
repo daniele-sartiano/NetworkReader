@@ -8,13 +8,12 @@
 #include <rrd.h>
 #include <rrd_reader.h>
 #include <utils.h>
+#include <fstream>
 
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
-
-    Utils::getFiles(".");
 
     const char* nvalue = "";
     int c ;
@@ -30,14 +29,32 @@ int main(int argc, char* argv[]) {
                     cerr << "got a nullptr for optarg for -n\n" ;
                     return(-1);
                 }
-
         }
     }
 
+    string line;
+    ifstream myfile (nvalue);
+    if (myfile.is_open())
+    {
+        RrdReader *r = new RrdReader();
+        while ( getline (myfile,line) )
+        {
+            cout << line << '\n';
+            r->read(line);
 
-    RrdReader *r = new RrdReader();
+        }
+        myfile.close();
+    }
+
+    else cout << "Unable to open file";
+
+    return 0;
+
+    Utils::getFiles(nvalue);
+
+    /*RrdReader *r = new RrdReader();
     r->read(nvalue);
-    delete r;
+    delete r;*/
 
     //-f /projects/ntop/c++/NetworkReader/data/pcap/snort.log.1425823194
     /*PcapReader *reader = new PcapReader(nvalue);
