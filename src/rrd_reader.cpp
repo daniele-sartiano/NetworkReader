@@ -20,9 +20,10 @@ int RrdReader::read(string filename) {
     time_t start =(time_t) 0;
     time_t end = time(0);
 
-    status = rrd_fetch_r(this->filename.c_str(), "AVERAGE", &start, &end, &step, &ds_cnt, &ds_name, &data);
+    status = rrd_fetch_r(filename.c_str(), "AVERAGE", &start, &end, &step, &ds_cnt, &ds_name, &data);
 
     if (status != 0) {
+        cout << rrd_get_error() << endl;
         return status;
     }
 
