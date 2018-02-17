@@ -26,9 +26,9 @@ void Step::setTimestamp(unsigned long timestamp) {
     Step::timestamp = timestamp;
 }
 
-const double *Step::getData() const {
+/*const double *Step::getData() const {
     return data;
-}
+}*/
 
 
 #endif //NETWORKREADER_STEP_H

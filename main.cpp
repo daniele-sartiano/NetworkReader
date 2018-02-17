@@ -32,6 +32,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    int i=0;
     string line;
     ifstream myfile (nvalue);
     if (myfile.is_open())
@@ -39,9 +40,9 @@ int main(int argc, char* argv[]) {
         RrdReader *r = new RrdReader();
         while ( getline (myfile,line) )
         {
+            i++;
             cout << line << '\n';
             r->read(line);
-
         }
         myfile.close();
     }

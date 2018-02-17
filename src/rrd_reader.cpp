@@ -13,7 +13,7 @@ int RrdReader::read(string filename) {
     char **ds_name;
     unsigned long step = 1;
     rrd_value_t *data;
-    pair<vector<string>, list<Step>> results;
+    pair<vector<string>, list<Step>> *results = new pair<vector<string>, list<Step>>();
 
     bool names_initialized = false;
 
@@ -30,23 +30,25 @@ int RrdReader::read(string filename) {
     const unsigned long length = (end - start) / step;
 
     size_t i, j;
+    long c = 0;
     for (time_t t=(start + step); t <= end; t += step) {
         i = (size_t) (t-start) / (size_t) step;
         double values[ds_cnt];
         for (j=0; j < ds_cnt; ++j) {
             if (!names_initialized) {
-                results.first.push_back(ds_name[j]);
+                results->first.push_back(ds_name[j]);
             }
             if (ds_name[j] >= 0) {
                 time_t timestamp = t;
-                double value = *data;
+                double value = data[c];
                 //cout << ds_name[j] << "\t" << timestamp << "\t" << value << endl;
                 values[j] = value;
             }
-            ++data;
+            //++data;
+            ++c;
         }
         //cout << t << values[0] << "|" << values[1] << endl;
-        results.second.push_back(Step(static_cast<unsigned long>(t), values));
+        results->second.push_back(Step(static_cast<unsigned long>(t), values));
         if (!names_initialized) {
             names_initialized = true;
         }
@@ -65,9 +67,14 @@ int RrdReader::read(string filename) {
         cout << s.getTimestamp() << " " << s.getData()[0] << "-" << s.getData()[1] << endl;
     }*/
 
-    cout << results.first.front() << endl;
-    cout << results.second.front().getTimestamp() << endl;
-    cout << results.second.back().getTimestamp() << endl;
-    cout << results.second.size() << endl;
-    cout << status << endl;
+    //cout << results.first.front() << endl;
+    cout << results->second.front().getTimestamp() << endl;
+    cout << results->second.back().getTimestamp() << endl;
+    cout << results->second.size() << endl;
+    //cout << status << endl;
+    //results->first.clear();
+    //results->second.clear();
+    free(data);
+    free(ds_name);
+    delete results;
 }
