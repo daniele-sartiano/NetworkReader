@@ -10,7 +10,6 @@
 #include <utils.h>
 #include <fstream>
 
-
 using namespace std;
 
 int main(int argc, char* argv[]) {
@@ -32,6 +31,8 @@ int main(int argc, char* argv[]) {
         }
     }
 
+
+
     int i=0;
     string line;
     ifstream myfile (nvalue);
@@ -41,8 +42,20 @@ int main(int argc, char* argv[]) {
         while ( getline (myfile,line) )
         {
             i++;
+            pair<vector<string>, vector<Step>> results;// = new pair<vector<string>, vector<Step>>();
             cout << line << '\n';
-            r->read(line);
+            r->read(line, results);
+
+            cout << "timestamp";
+            for (vector<string>::iterator it = results.first.begin(); it != results.first.end(); it++) {
+                cout << " " << (*it);
+            }
+            cout << endl;
+
+            for (vector<Step>::iterator it = results.second.begin(); it != results.second.end(); it++) {
+                Step s = (*it);
+                cout << s << endl;
+            }
         }
         myfile.close();
     }
