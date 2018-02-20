@@ -9,13 +9,15 @@
 #include <cmath>
 #include <limits>
 #include <vector>
+#include <string>
 
 class Step {
     unsigned long nfields;
     unsigned long timestamp;
+    std::vector<std::string> fields;
     std::vector<double> data;
 public:
-    Step(unsigned long nfields, unsigned long timestamp, std::vector<double> data) : nfields(nfields), timestamp(timestamp), data(data) {
+    Step(unsigned long nfields, unsigned long timestamp, std::vector<std::string> fields, std::vector<double> data) : nfields(nfields), timestamp(timestamp), fields(fields), data(data) {
 
     }
 
@@ -46,9 +48,9 @@ const std::vector<double> Step::getData() const {
 }
 
 std::string Step::toString() const {
-    std::string s = std::to_string(this->getTimestamp());
+    std::string s = ""; //std::to_string(this->getTimestamp());
     for (int i=0;i < this->nfields; i++) {
-        s.append(" " + std::to_string(this->data[i]));
+        s.append(" " + this->fields[i] + " " + std::to_string(this->data[i]));
     }
     return s;
 }

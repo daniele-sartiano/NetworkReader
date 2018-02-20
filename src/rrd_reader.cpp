@@ -34,13 +34,16 @@ int RrdReader::read(string filename, pair<vector<string>, vector<Step>>& results
 
     size_t i, j;
     long c = 0;
+    vector<string> fields;
     for (time_t t=(start + step); t <= end; t += step) {
         //i = (size_t) (t-start) / (size_t) step;
         vector<double> values;
+
         bool are_nan = true;
         for (j=0; j < ds_cnt; ++j) {
             if (!names_initialized) {
                 results.first.push_back(ds_name[j]);
+                fields.push_back(ds_name[j]);
             }
             if (ds_name[j] >= 0) {
                 values.push_back(data[c]);
@@ -51,7 +54,7 @@ int RrdReader::read(string filename, pair<vector<string>, vector<Step>>& results
             ++c;
         }
         if (!are_nan) {
-            Step s = Step(ds_cnt, static_cast<unsigned long>(t), values);
+            Step s = Step(ds_cnt, static_cast<unsigned long>(t), fields, values);
             results.second.push_back(s);
         }
         if (!names_initialized) {
