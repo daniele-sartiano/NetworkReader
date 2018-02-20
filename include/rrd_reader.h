@@ -11,6 +11,9 @@
 #include <list>
 #include <utility>
 #include <vector>
+#include <algorithm>
+
+#include <step.h>
 #include "reader_interface.h"
 
 using namespace std;
@@ -21,6 +24,8 @@ public:
     RrdReader() {};
 
     int read(string filename);
+
+    int read(string filename, pair<vector<string>, vector<Step>>& results);
 };
 
 
