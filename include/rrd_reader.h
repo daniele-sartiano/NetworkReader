@@ -25,7 +25,7 @@ public:
 
     int read(string filename);
 
-    int read(string filename, pair<vector<string>, vector<Step>>& results);
+    int read(string filename, string metric, string ip, pair<vector<string>, vector<Step>>& results);
 };
 
 

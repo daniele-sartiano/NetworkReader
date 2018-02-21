@@ -11,13 +11,19 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+
 class Step {
+    string ip;
+    string metric;
     unsigned long nfields;
     unsigned long timestamp;
-    std::vector<std::string> fields;
-    std::vector<double> data;
+    vector<string> fields;
+    vector<double> data;
 public:
-    Step(unsigned long nfields, unsigned long timestamp, std::vector<std::string> fields, std::vector<double> data) : nfields(nfields), timestamp(timestamp), fields(fields), data(data) {
+    Step(string metric, string ip, unsigned long nfields, unsigned long timestamp, vector<string> fields,
+         vector<double> data) : metric(metric), ip(ip), nfields(nfields), timestamp(timestamp), fields(fields),
+                                data(data) {
 
     }
 
@@ -25,12 +31,11 @@ public:
 
     inline void setTimestamp(unsigned long timestamp);
 
-    inline const std::vector<double> getData() const;
+    inline const vector<double> getData() const;
 
-    inline std::string toString() const;
+    inline string toString() const;
 
-    inline bool operator < (const Step& obj) const
-    {
+    inline bool operator<(const Step &obj) const {
         return (this->timestamp < obj.timestamp);
     }
 };
@@ -43,24 +48,25 @@ void Step::setTimestamp(unsigned long timestamp) {
     Step::timestamp = timestamp;
 }
 
-const std::vector<double> Step::getData() const {
+const vector<double> Step::getData() const {
     return data;
 }
 
-std::string Step::toString() const {
-    std::string s = ""; //std::to_string(this->getTimestamp());
-    for (int i=0;i < this->nfields; i++) {
-        s.append(" " + this->fields[i] + " " + std::to_string(this->data[i]));
+string Step::toString() const {
+    string s = ""; //to_string(this->getTimestamp());
+    for (int i = 0; i < this->nfields; i++) {
+        s.append(" " + this->fields[i] + " " + to_string(this->data[i]));
     }
     return s;
 }
 
 
-inline std::ostream& operator<<(std::ostream & outs, const Step& obj) {
+inline ostream &operator<<(ostream &outs, const Step &obj) {
     // print something from v to str, e.g: Str << v.getX();
     return outs << obj.toString();
 }
-inline std::ostream& operator<<(std::ostream& outs, const Step* obj ) {
+
+inline ostream &operator<<(ostream &outs, const Step *obj) {
     return outs << obj->toString();
 }
 

@@ -10,7 +10,7 @@ int RrdReader::read(string filename) {
 }
 
 
-int RrdReader::read(string filename, pair<vector<string>, vector<Step>>& results) {
+int RrdReader::read(string filename, string metric, string ip, pair<vector<string>, vector<Step>>& results) {
     int status;
     unsigned long ds_cnt = 0;
     char **ds_name;
@@ -54,7 +54,7 @@ int RrdReader::read(string filename, pair<vector<string>, vector<Step>>& results
             ++c;
         }
         if (!are_nan) {
-            Step s = Step(ds_cnt, static_cast<unsigned long>(t), fields, values);
+            Step s = Step(metric, ip, ds_cnt, static_cast<unsigned long>(t), fields, values);
             results.second.push_back(s);
         }
         if (!names_initialized) {
@@ -62,7 +62,7 @@ int RrdReader::read(string filename, pair<vector<string>, vector<Step>>& results
         }
     }
 
-    std::sort(results.second.begin(), results.second.end());
+    //std::sort(results.second.begin(), results.second.end());
 
     free(data);
     free(ds_name);
