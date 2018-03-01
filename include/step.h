@@ -53,11 +53,19 @@ const vector<double> Step::getData() const {
 }
 
 string Step::toString() const {
-    string s = ""; //to_string(this->getTimestamp());
+    string ret;
+    string s = ip + " " + metric; //to_string(this->getTimestamp());
     for (int i = 0; i < this->nfields; i++) {
-        s.append(" " + this->fields[i] + " " + to_string(this->data[i]));
+        if (i>0) {
+            ret.append(" | ");
+        }
+        double value = this->data[i] > 0 ? this->data[i] : 0;
+        //double value = this->data[i];
+        ret.append(s + " " + this->fields[i] + " " + to_string(value));
+
+        //s.append(" " + this->fields[i] + " " + to_string(this->data[i]));
     }
-    return s;
+    return ret;
 }
 
 

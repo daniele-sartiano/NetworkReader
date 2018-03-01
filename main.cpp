@@ -78,9 +78,9 @@ int main(int argc, char* argv[]) {
                 cout << s << endl;
             }*/
 
-            if (i>1000) {
+            /*if (i>3000) {
                 break;
-            }
+            }*/
         }
         myfile.close();
 
@@ -97,8 +97,7 @@ int main(int argc, char* argv[]) {
         vector<Step> values = v.second;
         cout << timestamp;
         for (vector<Step>::iterator it = values.begin(); it != values.end(); it++) {
-            cout << "|";
-            cout << (*it);
+            cout << " | " << (*it);
         }
         cout << endl;
 
